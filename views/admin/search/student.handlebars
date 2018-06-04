@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="https://rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css">
+<form action="/admin/search" method="post" class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-6">
+            <input name="name" class="awesomplete form-control" list="mylist" placeholder="Search people" />
+            <datalist id="mylist">
+                {{#each result}}
+                <option value="{{this.name}}">{{this.firstName}} {{this.lastName}} ({{this.branch}})</option>
+                {{/each}}
+            </datalist>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+          <button class="btn btn-primary" type="submit">Go!</button>
+        </div>
+    </div>
+</form>
+<div>
+    <img src="/uploads/Friends-header.jpg" width="100%" height="350px">
+</div>
+<script type="text/javascript" src="https://rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.min.js"></script>
+
