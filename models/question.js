@@ -1,23 +1,26 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Post = new Schema({
+const question = new Schema({
     course:{
         type: Schema.Types.ObjectId,
         ref: 'course'
     },
-    name:{
+    question:{
         type: String
     },
-    comment:{
-        required : true,
-        type: String,
-    },
     file:{
-        type:String,
+        type: String
     },
     date :{
         type: Date,
         default: Date.now()
-    }
+    },
+    name:{
+        type:String
+    },
+    answers: [{
+        type: Schema.Types.ObjectId,
+        ref: 'answers'
+    }]
 });
-module.exports = mongoose.model('posts',Post);
+module.exports = mongoose.model('question',question);

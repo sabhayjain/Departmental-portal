@@ -18,8 +18,8 @@ mongoose.connection
                 .once('open',function(){console.log("CONNECTED");})
                 .on('error',function(err){console.log("DISCONNECTED",err);});
 app.use(express.static(path.join(__dirname +'/public')));
-const {select,isequal} = require('./helpers/handlebar-helper');
-app.engine('handlebars',exphb({defaultLayout: 'home', helpers: {select:select,isequal: isequal}}));
+const {select,isequal,empty} = require('./helpers/handlebar-helper');
+app.engine('handlebars',exphb({defaultLayout: 'home', helpers: {select:select,isequal: isequal,empty: empty}}));
 app.set('view engine','handlebars');
 app.use(session({
     secret: 'ilovecoding',
@@ -34,23 +34,30 @@ app.use(function(req,res,next){
     res.locals.user = req.user || null;
     res.locals.error = req.flash('error');
     res.locals.error_message = req.flash('error_message');
+    res.locals.course_added = req.flash('course_added');
     next();
 });
 
 app.use(upload());
 const home = require('./routes/home/index');
+const categories = require('./routes/home/categories');
 const admin = require('./routes/admin/index');
 const posts = require('./routes/admin/posts');
 const profile = require('./routes/admin/profile');
 const seniors = require('./routes/admin/seniors');
 const student = require('./routes/admin/student');
+const course = require('./routes/admin/course');
+const doubt = require('./routes/admin/doubt');
 app.use('/',home); 
+app.use('/course',categories);
 app.use('/admin',admin);
 app.use('/admin/posts',posts);
 app.use('/admin/profile',profile);
 app.use('/admin/seniors',seniors);
 app.use('/admin/search',student);
+app.use('/admin/course', course);
+app.use('/admin/doubt',doubt);
 const port = 5555 || process.env.PORT;
-app.listen(port,function(){
+app.listen(port,function(){ 
     console.log("listening"); 
 });     

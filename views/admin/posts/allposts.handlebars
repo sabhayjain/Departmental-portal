@@ -1,15 +1,17 @@
-<h1>All Posts</h1>
+<h1>Your Posts</h1>
 {{#each posts}}
-<div class="list-group" style="background-color:gray; border-radius:10px;">
-    <div style="padding:10px; color:white">
-  
-    <h4 class="list-group-item-heading">{{course}}<a href="/admin/posts/edit/{{id}}" style="color:white"><i class="fa fa-pencil-square-o" aria-hidden="true" style="float:right"></i></a>
-    </h4>
-    <form action="/admin/posts/{{id}}?_method=DELETE" method="post"><button class="btn" style="float:right"><i class="fa fa-trash"></i></button></form>
-    <p class="list-group-item-text">{{comment}}</p>
-    <img src="/uploads/{{file}}" width="200px" height="200px" alt="">
-    </div>
-  
-</div>
-<br />
+          <div class="card mb-4">
+            <img class="card-img-top" src="/uploads/{{file}}" alt="">
+            {{!-- <a href="/admin/posts/download/{{id}}">Click</a> --}}
+            <div class="card-body">
+              <h2 class="card-title">{{course.course}}</h2>
+              <p class="card-text">{{comment}}</p>
+            </div>
+            <div class="card-footer text-muted">
+              <p style="float:left">Posted on {{date}} by
+              <span style="font-weight:bold">{{name}}</span></p>
+              <form style="float:left; margin-left:320px" action="/admin/posts/{{name}}/{{id}}?_method=DELETE" method="post"><button class="btn" style="font-size:20px;"><i class="fa fa-trash"></i></button>
+              <a class="btn" href="/admin/posts/edit/{{id}}" style="font-size:25px; color:black;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></form>
+           </div>
+          </div>
 {{/each}}

@@ -9,5 +9,13 @@ module.exports={
         else{
             return options.inverse(this);
         }
+    },
+    empty: function(name, options){
+        if(name == "no"){
+            return options.inverse(this);
+        }
+        else{
+            return options.fn(this);
+        }
     }
 }

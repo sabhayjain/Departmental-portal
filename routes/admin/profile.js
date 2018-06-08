@@ -23,7 +23,6 @@ router.put('/profileedit/:id',function(req,res){
         User.findOne({_id: req.params.id}).then(function(user){
             user.profile.image = filename;
             user.club = req.body.club;
-            user.name = user.firstName + ' ' + user.lastName;
             user.profile.bio = req.body.bio;
             user.profile.room = req.body.room;
             user.profile.club = req.body.club;
@@ -44,7 +43,6 @@ router.put('/profileedit/:id',function(req,res){
             user.profile.image = req.body.image;
             user.club = req.body.club;
             user.profile.bio = req.body.bio;
-            user.name = user.firstName + ' ' + user.lastName;
             user.profile.room = req.body.room;
             user.profile.club = req.body.club;
             user.profile.position = req.body.clubp;

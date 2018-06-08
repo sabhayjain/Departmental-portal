@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('users',{
+const Schema = mongoose.Schema;
+const User = new Schema({
     firstName:{
         required: true,
         type: String,
@@ -29,6 +30,10 @@ const User = mongoose.model('users',{
     },
     name:{
         type: String
+    },
+    comment:{
+        type: Schema.Types.ObjectId,
+        ref: 'posts'
     },
     profile:{
         image:{
@@ -63,4 +68,4 @@ const User = mongoose.model('users',{
         }
     }
 });
-module.exports = User;
+module.exports = mongoose.model('user',User);

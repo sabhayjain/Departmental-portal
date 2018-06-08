@@ -1,16 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../../models/User');
+const course = require('../../models/course')
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
+const Post = require('../../models/Post');
+const Course = require('../../models/course');
 router.all('/*',function(req,res,next){
     req.app.locals.layout = 'home';
     next();
 });
 router.get('/',function(req,res){
-    res.render('home/index');
-})
+    Post.find({}).sort({"date":-1}).populate('course').then(function(posts){
+        Course.find({}).then(function(course){
+            res.render('home/index',{posts:posts, course:course});
+        })
+    })
+});
 router.get('/about',function(req,res){
     res.render('home/about');
 })
@@ -76,6 +83,7 @@ router.post('/register',function(req,res){
                     year: req.body.year
         
                 });
+                user.name = user.firstName + ' ' + user.lastName;
                 bcrypt.genSalt(10,function(err,salt){
                     bcrypt.hash(user.password,salt,function(err,hash){
                         user.password = hash;
